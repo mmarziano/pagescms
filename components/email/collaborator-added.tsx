@@ -1,3 +1,4 @@
+import { brand } from "@/lib/brand";
 import * as React from "react";
 import {
   Body,
@@ -38,7 +39,7 @@ export const CollaboratorAddedEmailTemplate = ({
     <Html>
       <Head />
       <Preview>
-        You were added to &quot;{repoName}&quot; on Pages CMS
+        You can now edit {repoName}
       </Preview>
       <Tailwind>
         <Body
@@ -54,7 +55,7 @@ export const CollaboratorAddedEmailTemplate = ({
                 src={`${baseUrl}/images/email-logo.png`}
                 width="42"
                 height="42"
-                alt="Pages CMS"
+                alt={brand.name}
                 className="my-0 mx-auto"
               />
             </Section>
@@ -62,7 +63,7 @@ export const CollaboratorAddedEmailTemplate = ({
               className="text-[24px] font-semibold p-0 my-[30px] mx-0 text-center tracking-tight"
               style={{ color: emailTheme.foreground }}
             >
-              You were added to &quot;{repoName}&quot;
+              You can now edit {repoName}
             </Heading>
             <Text
               className="text-[16px] leading-[24px]"
@@ -75,7 +76,7 @@ export const CollaboratorAddedEmailTemplate = ({
               >
                 {invitedByName}
               </Link>{" "}
-              added you to the &quot;{repoName}&quot; project on Pages CMS.
+              added you as an editor of {repoName} in the {brand.name}.
               You already have access, so there is nothing to accept.
             </Text>
             <Section className="text-center mt-[24px] mb-[24px]">
@@ -88,7 +89,7 @@ export const CollaboratorAddedEmailTemplate = ({
                   color: emailTheme.buttonForeground,
                 }}
               >
-                Open &quot;{repoName}&quot;
+                Start editing
               </Button>
             </Section>
             <Text

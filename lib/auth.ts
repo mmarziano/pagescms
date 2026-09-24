@@ -1,3 +1,4 @@
+import { brand } from "@/lib/brand";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
@@ -164,7 +165,7 @@ export const auth = betterAuth({
       sendVerificationOTP: async ({ email, otp, type }) => {
         if (type !== "sign-in") return;
 
-        const subject = `Your Pages CMS temporary code is ${otp}`;
+        const subject = `Your ${brand.name} sign-in code is ${otp}`;
         const html = await render(
           LoginEmailTemplate({
             email,

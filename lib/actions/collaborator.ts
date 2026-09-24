@@ -1,5 +1,6 @@
 "use server";
 
+import { repoLabel } from "@/lib/brand";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { getInstallationRepos, getInstallations } from "@/lib/github-app";
@@ -180,7 +181,7 @@ const handleAddCollaborator = async (prevState: any, formData: FormData) => {
           const html = await render(
             InviteEmailTemplate({
               inviteUrl,
-              repoName: `${formData.get("owner")}/${formData.get("repo")}`,
+              repoName: repoLabel(owner, repo),
               email: normalizedEmail,
               invitedByName: user.name || user.githubUsername || user.email,
               invitedByUrl: `https://github.com/${user.githubUsername}`,
@@ -188,7 +189,7 @@ const handleAddCollaborator = async (prevState: any, formData: FormData) => {
           );
           await sendEmail({
             to: normalizedEmail,
-            subject: `Join "${owner}/${repo}" on Pages CMS`,
+            subject: `You're invited to edit ${repoLabel(owner, repo)}`,
             html,
           });
         } catch (error: any) {
@@ -201,7 +202,7 @@ const handleAddCollaborator = async (prevState: any, formData: FormData) => {
           const html = await render(
             CollaboratorAddedEmailTemplate({
               email: normalizedEmail,
-              repoName: `${formData.get("owner")}/${formData.get("repo")}`,
+              repoName: repoLabel(owner, repo),
               repoUrl,
               invitedByName: user.name || user.githubUsername || user.email,
               invitedByUrl: `https://github.com/${user.githubUsername}`,
@@ -209,7 +210,7 @@ const handleAddCollaborator = async (prevState: any, formData: FormData) => {
           );
           await sendEmail({
             to: normalizedEmail,
-            subject: `You were added to "${owner}/${repo}" on Pages CMS`,
+            subject: `You can now edit ${repoLabel(owner, repo)}`,
             html,
           });
         } catch (error: any) {
@@ -329,7 +330,7 @@ const handleResendCollaboratorInvite = async (collaboratorId: number, owner: str
     const html = await render(
       InviteEmailTemplate({
         inviteUrl,
-        repoName: `${owner}/${repo}`,
+        repoName: repoLabel(owner, repo),
         email: collaborator.email,
         invitedByName: user.name || user.githubUsername || user.email,
         invitedByUrl: `https://github.com/${user.githubUsername}`,
@@ -338,7 +339,7 @@ const handleResendCollaboratorInvite = async (collaboratorId: number, owner: str
 
     await sendEmail({
       to: collaborator.email,
-      subject: `Join "${owner}/${repo}" on Pages CMS`,
+      subject: `You're invited to edit ${repoLabel(owner, repo)}`,
       html,
     });
 

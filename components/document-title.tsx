@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import { brand, repoLabel } from "@/lib/brand";
 
-const APP_TITLE = "Pages CMS";
+const APP_TITLE = brand.name;
 
 export const formatDocumentTitle = (title?: string | null) =>
   title ? `${title} | ${APP_TITLE}` : APP_TITLE;
@@ -13,7 +14,7 @@ export const formatRepoBranchTitle = (
   repo: string,
   branch?: string,
 ) => {
-  const repoRef = `${owner}/${repo}${branch ? `@${branch}` : ""}`;
+  const repoRef = `${repoLabel(owner, repo)}${branch ? ` (${branch})` : ""}`;
   return `${title} | ${repoRef}`;
 };
 
